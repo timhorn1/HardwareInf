@@ -6,7 +6,6 @@ import webbrowser
 import psutil
 import GPUtil
 import platform
-
 from datetime import datetime
 from tkinter import *
 from tkinter.ttk import *
@@ -74,7 +73,7 @@ def action():
 
     def adjust_size(size):
         factor = 1024
-        for i in ["B", "KB", "MB", "GB", "TB"]:
+        for i2 in ["B", "KB", "MB", "GB", "TB"]:
             if size > factor:
                 size = size / factor
             else:
@@ -158,66 +157,70 @@ def action():
 # ------------------------ WICHTIGER TEIL ------------------------
 def Settings():
     # WINDOW SETTINGS
-    Tool = Tk()
-    Tool.title("Hardware Check")
-    Tool.geometry("720x380")
-    Tool.resizable(False, False)
-    Tool.protocol("WM_DELETE_WINDOW", disable_event_pass)
-    # Tool.overrideredirect(True)
+    tool = Tk()
+    tool.title("Hardware Check")
+    tool.geometry("720x380")
+    tool.resizable(False, False)
+    tool.protocol("WM_DELETE_WINDOW", disable_event_pass)
+    # tool.overrideredirect(True)
 
     # WINDOW POSITION #
     # Gets the requested values of the height and widht.
-    windowWidth = Tool.winfo_reqwidth()
-    windowHeight = Tool.winfo_reqheight()
+    windowWidth = tool.winfo_reqwidth()
+    windowHeight = tool.winfo_reqheight()
 
     # Gets both half the screen width/height and window width/height
-    positionRight = int(Tool.winfo_screenwidth() / 3 - windowWidth / 4)
-    positionDown = int(Tool.winfo_screenheight() / 8 - windowHeight / 4)
+    positionRight = int(tool.winfo_screenwidth() / 3 - windowWidth / 4)
+    positionDown = int(tool.winfo_screenheight() / 8 - windowHeight / 4)
 
     # Positions the window in the center of the page.
-    Tool.geometry("+{}+{}".format(positionRight, positionDown))
+    tool.geometry("+{}+{}".format(positionRight, positionDown))
     # -----#
 
-    Tool.icon = PhotoImage(file="icon.png")
-    Tool.iconphoto(False, Tool.icon)
+    tool.icon = PhotoImage(file="icon.png")
+    tool.iconphoto(False, tool.icon)
     background_image = Image.open("background.png")
     background_photo = ImageTk.PhotoImage(background_image)
-    background_label = Label(Tool, image=background_photo)
+    background_label = Label(tool, image=background_photo)
     background_label.image = background_photo
     background_label.place(relwidth=1, relheight=1)
 
-    # ------------------------ WICHTIGER TEIL ------------------------ Hier werden die Buttons erstellt,
-    # ihnen Namen gegeben, was sie ausführen sollen, welche Maus angenommen werden soll, wenn man über ihnen hovert UND 2 Texte mit dem Textinhalt text=""
-    # Mit style="" kann ich ab Zeile 203 den Buttons ein Design geben. Unter anderem foreground & background, die Schrift- art, größe usw. Mit raised="" kann
-    # ich folgendes machen: https://www.tutorialspoint.com/python/tk_relief.htm    Ab Zeile 214 werden die Positionen der Buttons gesetzt
+    # ------------------------ WICHTIGER TEIL ------------------------
+    # Hier werden die Buttons erstellt,
+    # ihnen Namen gegeben, was sie ausführen sollen, welche Maus angenommen werden soll, wenn man über ihnen hovert UND
+    # 2 Texte mit dem Textinhalt text="".
+    # Mit style="" kann ich ab Zeile 203 den Buttons ein Design geben.
+    # Unter anderem foreground & background, die Schrift- art, größe usw. Mit raised="" kann
+    # ich folgendes machen: https://www.tutorialspoint.com/python/tk_relief.htm
+    # Ab Zeile 214 werden die Positionen der Buttons gesetzt
     # BUTTONS
-    Tool.check_button = Button(Tool, text="Check Hardware", command=action, cursor="hand2", style="checkButton.TButton")
-    Tool.check_button_label = Label(Tool, text="Information about\nthe hardware is listed",
+    tool.check_button = Button(tool, text="Check Hardware", command=action, cursor="hand2", style="checkButton.TButton")
+    tool.check_button_label = Label(tool, text="Information about\nthe hardware is listed",
                                     font=("courier new", 10, "bold", "italic"), style="checkButton.TLabel")
-    Tool.exit_button = Button(Tool, text="Exit", command=quit, cursor="hand2", style="exitButton.TButton")
-    Tool.exit_button_label = Label(Tool, text="Quit the program",
+    tool.exit_button = Button(tool, text="Exit", command=quit, cursor="hand2", style="exitButton.TButton")
+    tool.exit_button_label = Label(tool, text="Quit the program",
                                    font=("courier new", 10, "bold", "italic"), style="exitButton.TLabel")
 
     # Button style
     # checkButton
-    Tool.style = ttk.Style()
-    Tool.style.configure("checkButton.TButton", foreground="black", background="black",
+    tool.style = ttk.Style()
+    tool.style.configure("checkButton.TButton", foreground="black", background="black",
                          font=("courier new", 13, "bold"), raised="FLAT")
-    Tool.style.configure("checkButton.TLabel", foreground="yellow", background="black")
+    tool.style.configure("checkButton.TLabel", foreground="yellow", background="black")
     # exitButton
-    Tool.style.configure("exitButton.TButton", foreground="black", background="black",
+    tool.style.configure("exitButton.TButton", foreground="black", background="black",
                          font=("courier new", 13, "bold"), raised="FLAT")
-    Tool.style.configure("exitButton.TLabel", foreground="yellow", background="black")
+    tool.style.configure("exitButton.TLabel", foreground="yellow", background="black")
 
     # ------------------------ UNWICHTIGER TEIL ------------------------
     # Button place
-    Tool.check_button.place(x=100, y=50, width=200, height=75)
-    Tool.check_button_label.place(x=108, y=140, width=183, height=40)
-    Tool.exit_button.place(x=415, y=50, width=200, height=75)
-    Tool.exit_button_label.place(x=447, y=140, width=134, height=20)
+    tool.check_button.place(x=100, y=50, width=200, height=75)
+    tool.check_button_label.place(x=108, y=140, width=183, height=40)
+    tool.exit_button.place(x=415, y=50, width=200, height=75)
+    tool.exit_button_label.place(x=447, y=140, width=134, height=20)
 
     # MENU STRIP
-    menu = Menu(Tool)
+    menu = Menu(tool)
     menu_file = Menu(menu, tearoff=0)
     menu_info = Menu(menu, tearoff=0)
     menu.add_cascade(label="File", menu=menu_file)
@@ -227,7 +230,7 @@ def Settings():
     menu_info.add_command(label="About", command=menu_info_action)
     menu_info.add_separator()
     menu_info.add_command(label="Source Code", command=menu_github_action)
-    Tool.config(menu=menu)
+    tool.config(menu=menu)
 
     # LINKS
     """
